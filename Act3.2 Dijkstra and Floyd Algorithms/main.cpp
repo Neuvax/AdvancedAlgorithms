@@ -32,6 +32,35 @@ typedef vector<lli> vi;
     cin.tie(0);                   \
     cout.tie(0);
 
+/**
+ * @brief Returns the shortest path from a source node to a destination node in a graph using
+ * 
+ * @param adjL vector<vector<ii>> of the adjacency list of the graph.
+ * @param source lli of the source node.
+ * @return vector<lli> of the shortest path from the source node to the destination node.
+ * 
+ * @complexity O(E log V), where E is the number of edges and V is the number of vertices.
+ */
+vector<lli> dijkstraAdjL(vector<vector<ii>> &adjL, lli source) {
+    vector<lli> dist(sz(adjL), 1e18);
+    dist[source] = 0;
+    priority_queue<ii, vector<ii>, greater<ii>> pq;
+    pq.push({0, source});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d > dist[u]) continue;
+        for (auto &v : adjL[u]) {
+            lli weight = dist[u] + v.s;
+            if (weight < dist[v.f]) {
+                dist[v.f] = weight;
+                pq.push({dist[v.f], v.f});
+            }
+        }
+    }
+    return dist;
+}
+
 
 int main() { _
     // freopen("input.txt", "r", stdin);
