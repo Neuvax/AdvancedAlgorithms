@@ -1,5 +1,14 @@
-//#pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
-//#pragma GCC target("avx,avx2,fma")
+/**
+ * @file main.cpp
+ * @author Jorge Germán Wolburg Trujillo -- A01640826
+ * @author Armando Terrazas Gómez -- A01640924
+ * @brief  Prints the shortest path from a source node to a destination node in a graph comparing
+ *         Dijsktra's and Floyd's algorithms.
+ * @version 0.1
+ * @date 30-09-2023
+ */
+// #pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
+// #pragma GCC target("avx,avx2,fma")
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -15,19 +24,34 @@ typedef vector<lli> vi;
 #define pb push_back
 #define sz(s) lli(s.size())
 #define all(s) begin(s), end(s)
-#define deb(x) cout << #x": " << (x) << endl
+#define deb(x) cout << #x ": " << (x) << endl
 #define print(x) cout << (x) << endl
-#define fore(i, a, b) for(lli i = (a), BS = (b); i < BS; ++i)
-#define _ ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define fore(i, a, b) for (lli i = (a), BS = (b); i < BS; ++i)
+#define _                         \
+    ios_base::sync_with_stdio(0); \
+    cin.tie(0);                   \
+    cout.tie(0);
+
 
 int main() { _
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
     lli N, E;
     cin >> N >> E;
-    vector<vector<ii>> adj(N);
-    
+    //Adjacency list
+    vector<vector<ii>> adjL(N);
+    //Adjacency Matrix
+    vector<vector<lli>> adjM(N, vector<lli>(N, 1e18));
+    //Read edges
+    fore(i, 0, E) {
+        lli u, v, w;
+        cin >> u >> v >> w;
+        adjL[u].pb({v, w});
+        adjM[u][v] = w;
+    }
+
+
     return 0;
 }
 
-//g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt
+// g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt
