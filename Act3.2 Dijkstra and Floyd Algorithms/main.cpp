@@ -44,17 +44,17 @@ typedef vector<lli> vi;
  * 
  * @complexity O(E*log(V)), where E is the number of edges and V is the number of vertices and auxiliar space O(V).
  */
-vector<lli> dijkstraAdjL(vector<vector<ii>> &adjL, lli source) {
-    vector<lli> dist(sz(adjL), 1e18);
+vector<ld> dijkstraAdjL(vector<vector<pair<lli, ld>>> &adjL, lli source) {
+    vector<ld> dist(sz(adjL), 1e18);
     dist[source] = 0;
-    priority_queue<ii, vector<ii>, greater<ii>> pq;
+    priority_queue<pair<lli, ld>, vector<pair<lli, ld>>, greater<pair<lli, ld>>> pq;
     pq.push({0, source});
     while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
         if (d > dist[u]) continue;
         for (auto &v : adjL[u]) {
-            lli weight = dist[u] + v.s;
+            ld weight = dist[u] + v.s;
             if (weight < dist[v.f]) {
                 dist[v.f] = weight;
                 pq.push({dist[v.f], v.f});
@@ -66,17 +66,18 @@ vector<lli> dijkstraAdjL(vector<vector<ii>> &adjL, lli source) {
 
 
 int main() { _
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
     lli N, E;
     cin >> N >> E;
     //Adjacency list
-    vector<vector<ii>> adjL(N);
+    vector<vector<pair<lli, ld>>> adjL(N);
     //Adjacency Matrix
-    vector<vector<lli>> adjM(N, vector<lli>(N, 1e18));
+    vector<vector<ld>> adjM(N, vector<ld>(N, 1e18*1.0));
     //Read edges
     fore(i, 0, E) {
-        lli u, v, w;
+        lli u, v;
+        ld w;
         cin >> u >> v >> w;
         adjL[u].pb({v, w});
         adjM[u][v] = w;
@@ -84,7 +85,7 @@ int main() { _
 
     //Dijkstra's algorithm
     for (lli i = 0; i < N; i++) {
-        vector<lli> dist = dijkstraAdjL(adjL, i);
+        vector<ld> dist = dijkstraAdjL(adjL, i);
         for (lli j = 0; j < N; j++) {
             cout << "node " << i << " to node " << j << ": " << (dist[j] == 1e18 ? -1 : dist[j]) << endl;
         }

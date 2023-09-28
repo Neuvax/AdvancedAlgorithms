@@ -1,0 +1,31 @@
+HOLA
+node 0 to node 0: 0
+node 0 to node 1: 6
+node 0 to node 2: 5
+node 0 to node 3: 7
+node 0 to node 4: 9
+
+node 1 to node 0: 6
+node 1 to node 1: 0
+node 1 to node 2: 6
+node 1 to node 3: 8
+node 1 to node 4: 10
+
+node 2 to node 0: -1
+node 2 to node 1: -1
+node 2 to node 2: 0
+node 2 to node 3: 2
+node 2 to node 4: 4
+
+node 3 to node 0: -1
+node 3 to node 1: -1
+node 3 to node 2: 12
+node 3 to node 3: 0
+node 3 to node 4: 2
+
+node 4 to node 0: -1
+node 4 to node 1: -1
+node 4 to node 2: 10
+node 4 to node 3: 12
+node 4 to node 4: 0
+
