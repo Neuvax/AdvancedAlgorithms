@@ -13,6 +13,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
@@ -87,7 +88,7 @@ int main() { _
     for (lli i = 0; i < N; i++) {
         vector<ld> dist = dijkstraAdjL(adjL, i);
         for (lli j = 0; j < N; j++) {
-            cout << "node " << i << " to node " << j << ": " << (dist[j] == 1e18 ? -1 : dist[j]) << endl;
+            cout << setprecision(8) << "node " << i << " to node " << j << ": " << (dist[j] == 1e18 ? -1 : dist[j]) << endl;
         }
         cout << endl;
     }
