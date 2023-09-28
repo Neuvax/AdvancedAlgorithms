@@ -9,7 +9,10 @@
  */
 // #pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
 // #pragma GCC target("avx,avx2,fma")
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 
@@ -39,7 +42,7 @@ typedef vector<lli> vi;
  * @param source lli of the source node.
  * @return vector<lli> of the shortest path from the source node to the destination node.
  * 
- * @complexity O(E log V), where E is the number of edges and V is the number of vertices.
+ * @complexity O(E*log(V)), where E is the number of edges and V is the number of vertices and auxiliar space O(V).
  */
 vector<lli> dijkstraAdjL(vector<vector<ii>> &adjL, lli source) {
     vector<lli> dist(sz(adjL), 1e18);
@@ -79,6 +82,14 @@ int main() { _
         adjM[u][v] = w;
     }
 
+    //Dijkstra's algorithm
+    for (lli i = 0; i < N; i++) {
+        vector<lli> dist = dijkstraAdjL(adjL, i);
+        for (lli j = 0; j < N; j++) {
+            cout << "node " << i << " to node " << j << ": " << (dist[j] == 1e18 ? -1 : dist[j]) << endl;
+        }
+        cout << endl;
+    }
 
     return 0;
 }
