@@ -63,8 +63,8 @@ vector<lli> dijkstraAdjL(vector<vector<ii>> &adjL, lli source) {
 
 
 int main() { _
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     lli N, E;
     cin >> N >> E;
     //Adjacency list
@@ -83,4 +83,4 @@ int main() { _
     return 0;
 }
 
-// g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt
+// g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt   
