@@ -65,17 +65,42 @@ vector<ld> dijkstraAdjL(vector<vector<pair<lli, ld>>> &adjL, lli source) {
     return dist;
 }
 
+/**
+ * @brief Computes the shortest distances between all pairs of nodes in a graph using the Floyd-Warshall algorithm.
+ *
+ * @param adjM vector<vector<ld>> representing the adjacency matrix of the graph.
+ * @return vector<vector<ld>> representing the shortest distances between all pairs of nodes.
+ *
+ * @complexity O(V^3), where V is the number of vertices.
+ */
+vector<vector<ld>> floydWarshall(vector<vector<ld>> &adjM) {
+    lli V = sz(adjM);
+    vector<vector<ld>> dist(adjM);
+
+    for (lli k = 0; k < V; k++) {
+        for (lli i = 0; i < V; i++) {
+            for (lli j = 0; j < V; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+
+    return dist;
+}
 
 int main() { _
     //freopen("input.txt", "r", stdin);
     //freopen("output.txt", "w", stdout);
     lli N, E;
     cin >> N >> E;
-    //Adjacency list
+    // Adjacency list
     vector<vector<pair<lli, ld>>> adjL(N);
-    //Adjacency Matrix
-    vector<vector<ld>> adjM(N, vector<ld>(N, 1e18*1.0));
-    //Read edges
+    // Initialize the adjacency matrix with infinity
+    vector<vector<ld>> adjM(N, vector<ld>(N, 1e18));
+    
+    // Read edges and update the adjacency matrix
     fore(i, 0, E) {
         lli u, v;
         ld w;
@@ -84,11 +109,26 @@ int main() { _
         adjM[u][v] = w;
     }
 
-    //Dijkstra's algorithm
+    // Dijkstra's algorithm
     for (lli i = 0; i < N; i++) {
         vector<ld> dist = dijkstraAdjL(adjL, i);
         for (lli j = 0; j < N; j++) {
             cout << setprecision(8) << "node " << i << " to node " << j << ": " << (dist[j] == 1e18 ? -1 : dist[j]) << endl;
+        }
+        cout << endl;
+    }
+
+    // Floyd-Warshall algorithm
+    vector<vector<ld>> floydResult = floydWarshall(adjM);
+
+    cout << "Floyd:" << endl;
+    for (lli i = 0; i < N; i++) {
+        for (lli j = 0; j < N; j++) {
+            if (floydResult[i][j] == 1e18) {
+                cout << "-1 ";
+            } else {
+                cout << fixed << setprecision(2) << floydResult[i][j] << " ";
+            }
         }
         cout << endl;
     }
