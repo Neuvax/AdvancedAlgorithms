@@ -7,7 +7,7 @@
  * @version 0.1
  * @date 30-09-2023
  */
-// #pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
+#pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
 // #pragma GCC target("avx,avx2,fma")
 #include <iostream>
 #include <vector>
@@ -110,6 +110,7 @@ int main() { _
     }
 
     // Dijkstra's algorithm
+    cout << "Dijkstra:" << endl;
     for (lli i = 0; i < N; i++) {
         vector<ld> dist = dijkstraAdjL(adjL, i);
         for (lli j = 0; j < N; j++) {
@@ -127,7 +128,7 @@ int main() { _
             if (floydResult[i][j] == 1e18) {
                 cout << "-1 ";
             } else {
-                cout << fixed << setprecision(2) << floydResult[i][j] << " ";
+                cout << fixed << setprecision(8) << floydResult[i][j] << " ";
             }
         }
         cout << endl;
