@@ -7,7 +7,7 @@
  * @version 0.1
  * @date 30-09-2023
  */
-#pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
+// #pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
 // #pragma GCC target("avx,avx2,fma")
 #include <iostream>
 #include <vector>
