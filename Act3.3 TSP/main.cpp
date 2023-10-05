@@ -52,15 +52,15 @@ class City {
         }
 
         /**
-         * @brief Get the Distance To object
+         * @brief Get the Distance To city
          * 
          * @param c City to calculate distance
-         * @return lli square distance between cities 
+         * @return lli distance between cities 
          */
-        lli getDistanceTo(const City &c) {
+        ld getDistanceTo(const City &c) {
             //Calculate square distance between cities
             lli d1 = (this->x - c.x) * (this->x - c.x) + (this->y - c.y) * (this->y - c.y);
-            return d1;
+            return sqrt(d1);
         }
 };
 
@@ -70,14 +70,14 @@ class City {
  * @param currentCity to calculate nearest neighbor  
  * @param cities vector of cities 
  * @param visitedCities vector of visited cities 
- * @return pair<lli, lli> nearest neighbor and distance 
+ * @return pair<lli, ld> nearest neighbor and distance 
  */
-ii nearestNeighbor(City currentCity, vector<City> &cities, vector<bool> &visitedCities) {
-    lli minDistance = numeric_limits<lli>::max();
+pair<lli, ld> nearestNeighbor(City currentCity, vector<City> &cities, vector<bool> &visitedCities) {
+    ld minDistance = numeric_limits<ld>::max();
     lli nearestCity = -1;
     fore(i, 0, sz(cities)) {
         if (visitedCities[i]) continue;
-        lli distance = currentCity.getDistanceTo(cities[i]);
+        ld distance = currentCity.getDistanceTo(cities[i]);
         if (distance < minDistance) {
             minDistance = distance;
             nearestCity = i;
@@ -99,20 +99,18 @@ int main() { _
     }
 
     vector<bool> visitedCities(n, false);
-    lli totalDistance = 0;
+    ld totalDistance = 0;
     lli currentCity = 0;
     visitedCities[currentCity] = true;
     fore(i, 0, n - 1) {
-        ii nearestCity = nearestNeighbor(cities[currentCity], cities, visitedCities);
+        pair<lli, ld> nearestCity = nearestNeighbor(cities[currentCity], cities, visitedCities);
         currentCity = nearestCity.f;
         totalDistance += nearestCity.s;
         visitedCities[currentCity] = true;
     }
 
     totalDistance += cities[currentCity].getDistanceTo(cities[0]);
-    //Calculate square root of total distance
-    ld ans = sqrt(totalDistance);
-    cout << fixed << setprecision(2) << ans << endl;
+    cout << fixed << setprecision(8) << totalDistance << endl;
 
     return 0;
 }
