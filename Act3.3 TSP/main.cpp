@@ -71,6 +71,7 @@ class City {
  * @param cities vector of cities 
  * @param visitedCities vector of visited cities 
  * @return pair<lli, ld> nearest neighbor and distance 
+ * @note Complexity: O(n), where n is the number of cities. Space O(n)
  */
 pair<lli, ld> nearestNeighbor(City currentCity, vector<City> &cities, vector<bool> &visitedCities) {
     ld minDistance = numeric_limits<ld>::max();
