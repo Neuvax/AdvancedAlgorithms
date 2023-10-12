@@ -94,8 +94,8 @@ int main() { _
     cin >> n;
     vector<City> cities(n);
     fore(i, 0, n) {
-        lli x, y;
-        cin >> x >> y;
+        lli id, x, y;
+        cin >> id >> x >> y;
         cities[i] = City(i, x, y);
     }
 
