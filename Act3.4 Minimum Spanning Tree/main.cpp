@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ * @author Jorge Germán Wolburg Trujillo -- A01640826
+ * @author Armando Terrazas Gómez -- A01640924 
+ * @brief Minimum Spanning Tree (MST) using Kruskal's algorithm
+ * @version 0.1
+ * @date 14-10-2023
+*/
 //#pragma GCC optimize("Ofast", "unroll-loops", "no-stack-protector", "fast-math")
 //#pragma GCC target("avx,avx2,fma")
 #include <bits/stdc++.h>
@@ -12,6 +20,10 @@ typedef pair<lli, pair<lli, lli>> edge;
 #define pb push_back
 #define _ ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 
+/**
+ * @class DSU
+ * @brief Data Structure for Disjoint Set Union operations.
+ */
 class DSU {
 private:
     vector<lli> parent, rank;
@@ -30,7 +42,12 @@ public:
         }
         return parent[x];
     }
-
+    
+    /**
+     * @brief Merges two sets together.
+     * @param x First node.
+     * @param y Second node.
+     */
     void unionSet(lli x, lli y) {
         lli rootX = find(x);
         lli rootY = find(y);
@@ -49,8 +66,8 @@ public:
 };
 
 int main() { _
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
 
     lli n, m, a, b, w, mstWeight = 0;
     cin >> n >> m;
