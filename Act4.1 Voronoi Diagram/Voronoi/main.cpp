@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ * @author Jorge Germán Wolburg Trujillo -- A01640826
+ * @author Armando Terrazas Gómez -- A01640924 
+ * @brief Voronoi Diagram to find the nearest toilet in Paris
+ * @version 1.0
+ * @date 07-11-2023
+*/
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,6 +18,10 @@ typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> Delaunay;
 typedef K::Point_2 Point;
 
+/**
+ * @brief Structure representing a toilet in the csv
+ * 
+ */
 struct Toilet {
     std::string line;
     std::string station;
@@ -27,6 +39,14 @@ struct Toilet {
     std::string manager; // Gestionnaire
 };
 
+/**
+ * @brief Reads the csv file and returns a vector of toilets
+ * 
+ * @param filename string with the name of the csv file
+ * @return std::vector<Toilet> vector of toilets 
+ * 
+ * @complexity O(n)
+ */
 std::vector<Toilet> read_csv(const std::string& filename) {
     std::vector<Toilet> toilets;
     std::ifstream file(filename);
@@ -80,8 +100,6 @@ int main(int argc, char* argv[]) {
     Delaunay dt;
     dt.insert(points.begin(), points.end());
 
-    // Querying the nearest toilet example (for illustration)
-    // Here you would get the query from user input or another source
     Point query(2.3522 /* longitude of Paris */, 48.8566 /* latitude of Paris */);
     auto nearest = dt.nearest_vertex(query);
     std::cout << "The nearest toilet is at: "
