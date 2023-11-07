@@ -1,0 +1,61 @@
+﻿Ligne;Station;Accessible au public;Tarif [Gratuit|Payant];Acces Passe Navigo ou Ticket T+;Acces Bouton poussoir;En zone controlee;Hors zone controlee station;Hors zone controlee voie publique;Accessibilite PMR;Localisation;coord_geo;gestionnaire
+8;Grands Boulevards;;;;;;;;;Accès par la salle d'échange, Espace Voyageur avant lignes de contrôles;48.87133, 2.34351;Toilette publique  RATP
+13;Les Agnettes;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.92317699378374, 2.28605910172606;Toilette publique  RATP
+14;Bercy;oui;gratuit;;oui;oui;;;oui;Dans le couloir en direction des quais ligne 6 ou direction quais ligne 14.;48.84019224440348, 2.3794772572660587;Toilette publique  RATP
+14;Gare de Lyon;oui;gratuit;;oui;;oui;;oui;En direction de la sortie 13.;48.84391523960347, 2.3728897698814633;Toilette publique  RATP
+14;Olympiades;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.8269104, 2.3661972;Toilette publique  RATP
+A;Auber;oui;gratuit;;oui;oui;;;oui;A proximité du point de vente - information.;48.8731477, 2.3295277;Toilette publique  RATP
+A;Chatelet;oui;gratuit;;oui;;oui;;oui;En partant de la zone RER vers la place Carrée et la ligne 4, à proximité des escaliers mécaniques.;48.8622381, 2.345496;Toilette publique  RATP
+A;Nanterre - Universite;oui;gratuit;;oui;;oui;;oui;A l'extérieur, sur le parvis;48.901251906231444, 2.21599944;Toilette publique  RATP
+A;Rueil-Malmaison;oui;gratuit;;oui;oui;;;oui;A proximité de la ligne de valideurs, en direction des sorties.;48.88722206053287, 2.170623204930391;Toilette publique  RATP
+B;Antony;oui;gratuit;;oui;oui;;;oui;Dans la salle d'échange, coté banlieue et point de vente - information;48.75482748503882, 2.3008650705983067;Toilette publique  RATP
+B;Arcueil Cachan;oui;gratuit;oui;;;;oui;oui;A l'extérieur de la gare, dans un bâtiment indépendant.;48.798366, 2.327766;Toilette publique  RATP
+B;Bourg-la-Reine;oui;gratuit;;oui;oui;;;oui;En milieu de quai central, direction Paris;48.78005093776892, 2.3121626259597874;Toilette publique  RATP
+B;Cite Universitaire;oui;gratuit;;oui;;oui;;non;A proximité du point de vente - information.;48.8205877, 2.3390071;Toilette publique  RATP
+B;Massy - Palaiseau;oui;gratuit;oui;;;;oui;oui;A l'extérieur du bâtiment gare, à proximité du point de vente - information, côté autobus.;48.725109, 2.2606361;Toilette publique  RATP
+B;Saint-Remy-les-Chevreuse;oui;gratuit;oui;;;;oui;oui;A l'extérieur de la gare, dans le prolongement de la gare.;48.70286868424979, 2.070600214521146;Toilette publique  RATP
+1;Champs-élysées - Clémenceau;;;;;;;;;sortie Grand Palais, square Jean Perrin;48.86754, 2.31331;Toilette publique  RATP
+5;Bobigny - Pablo Picasso;oui;gratuit;;oui;;oui;;non;A proximité du point de vente - information.;48.90717445316718, 2.4492666955791327;Toilette publique  RATP
+6;Trocadero;oui;gratuit;;;;;;oui;Sortie 1, avenue du Président Wilson.;48.86419500504601, 2.2878473386642373;Toilette publique  RATP
+14;Mairie de Saint-Ouen;;;;;;;;;Accès par la salle d'échanges niveau -2, proche accès quais Ligne13;48.91261, 2.33439;Toilette publique  RATP
+14;Saint Ouen;;;;;;;;;Salle principale proche point de vente;48.90385, 2.32021;Toilette publique  RATP
+A;Gare de Lyon;oui;gratuit;;oui;oui;;;oui;A proximité du haut de l'escalator menant vers la tête de quai, direction Paris.;48.84436, 2.37291;Toilette publique  RATP
+A;Marne-la-Vallee - Chessy;oui;gratuit;;oui;oui;;;oui;Au milieu du quai central.;48.86849697024026, 2.7822597305629526;Toilette publique  RATP
+A;Nogent-sur-Marne;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.83510877417377, 2.4716839161590887;Toilette publique  RATP
+B;Gentilly;oui;gratuit;;oui;oui;;;oui;Sur le quai direction Paris.;48.8153713, 2.3408362;Toilette publique  RATP
+1;Charles de Gaulle - Etoile;oui;gratuit;;oui;;oui;;non;En entrant par l'accès 3, avenue Hoche, dans le couloir menant vers la sortie 2, avenue de Friedland.;48.87445277569274, 2.2963258094953476;Toilette publique  RATP
+7;Villejuif - Louis Aragon;oui;gratuit;oui;;;;oui;oui;Sortie 2, Maxime Gorki vers la gare routière.;48.78730304269838, 2.3674101521293744;Toilette publique  RATP
+13;Asnieres-Gennevilliers - Les Courtilles;oui;gratuit;;oui;oui;;;oui;A proximité du point de vente - information.;48.93074305254229, 2.283951123396349;Toilette publique  RATP
+14;Pyramides;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.8656737, 2.3344599;Toilette publique  RATP
+14;Pont Cardinet;;;;;;;;;Proche du point de vente;48.88761, 2.31417;Toilette publique  RATP
+A;Nanterre - Ville;oui;gratuit;;oui;oui;;;oui;Sur le quai en direction de Paris.;48.8950462710121, 2.1956095209931936;Toilette publique  RATP
+A;Saint-Germain-en-Laye;oui;gratuit;;oui;oui;;;oui;A proximité du palier haut de l'ascenseur desservant les voies 2 et 4.;48.8979364, 2.0948768;Toilette publique  RATP
+B;Gif-sur-Yvette;oui;gratuit;;oui;;oui;;oui;Sur le quai direction Paris;48.6981859, 2.1367431;Toilette publique  RATP
+B;Laplace;oui;gratuit;oui;;;;oui;oui;A l'extérieur de la gare, à proximité du point de vente - information.;48.80784404743202, 2.3330228065226883;Toilette publique  RATP
+B;Croix de Berny;;;;;;;;;On y accède par le couloir à la limite de la Salle d'échange;48.76262, 2.30433;Toilette publique  RATP
+4;Barbara;;;;;;;;;Dans le couloir. Il est accessible : Via les ascenseurs de la Salle d'échange qui mènent directement dans le couloir -Tête de quai puis Escalier Mécanique -Queue de quai puis Escalier Mécanique;48.80963, 2.31776;Toilette publique  RATP
+8;Créteil - Préfecture;;;;;;;;;Accès par le couloir – Espace Voyageur avant lignes de contrôles.;48.77999, 2.45996;Toilette publique  RATP
+14;Bibliotheque Francois Mitterrand;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.82978526345046, 2.3776037993133134;Toilette publique  RATP
+14;Cour Saint-Emilion;oui;gratuit;;oui;;oui;;oui;Dans la salle d'échange, à proximité du point de vente - information;48.83346, 2.38607;Toilette publique  RATP
+4;Bagneux Lucie Aubrac;;;;;;;;;Il est accessible depuis le guichet au niveau voirie juste après avant franchi la ligne de contrôle;48.80357, 2.3174;Toilette publique  RATP
+14;Saint Lazare;oui;gratuit;;oui;;oui;;oui;A proximité du point de vente - information.;48.87552856932788, 2.324120111297863;Toilette publique  RATP
+10;Cluny - La Sorbonne;oui;payant;oui;;;;;oui;Sortie 2 boulevard St-Germain, à proximité du point de vente - information.;48.85079575570429, 2.3450308883652258;Toilette publique  RATP
+14;Porte de Clichy;;;;;;;;;Dans le couloir depuis la salle d'échanges niveau -2 proche accès Ligne13;48.89467, 2.31414;Toilette publique  RATP
+12;Concorde;non;gratuit;;oui;oui;;;oui;En direction de la ligne 1, vers la sortie 2, rue de Rivoli.;48.866999231212986, 2.32113887;Toilette publique  RATP
+A;Charles de Gaulle - Etoile;oui;gratuit;;oui;oui;;;oui;A proximité du point de vente - information situé sortie avenue des Champs-Elysées, après la ligne de valideurs;48.87346419088715, 2.2963810880084012;Toilette publique  RATP
+14;Madeleine;oui;gratuit;;oui;;oui;;oui;Sortie 1 dans la salle d'échange.;48.869956563045214, 2.3253476474582184;Toilette publique  RATP
+A;Chatelet;oui;gratuit;;oui;;oui;;oui;A proximité des sorties en direction des lignes 7 et 11;48.858291026403705, 2.3483281842513337;Toilette publique  RATP
+A;Charles de Gaulle - Etoile;oui;gratuit;;oui;oui;;;non;Sortie avenue Carnot, après la ligne de valideurs en venant de l'extérieur de la gare.;48.8740658, 2.2951493;Toilette publique  RATP
+A;Chatelet;oui;gratuit;;oui;oui;;;oui;A proximité de la sortie 3, Forum - Porte Lescot, en face du comptoir d'info;48.858857284381365, 2.347769856742684;Toilette publique  RATP
+A;La Defense (Grande Arche);oui;gratuit;;oui;;oui;;oui;A proximité de la zone SNCF, à l'opposé de l'entrée du tramway T2.;48.891826754836515, 2.237992043215619;Toilette publique  RATP
+A;Nanterre - Prefecture;oui;gratuit;;oui;oui;;;oui;A proximité du point de vente - information;48.8971999, 2.222709;Toilette publique  RATP
+A;Nation;oui;gratuit;;oui;oui;;;oui;En allant des quais du RER vers les quais de la ligne 1, 2 et 6, en bas des escalators.;48.8484803444062, 2.39676520957729;Toilette publique  RATP
+A;Noisy-le-Grand - Mont d'Est;oui;gratuit;;oui;oui;;;oui;A proximité du point de vente - information.;48.84078, 2.54804;Toilette publique  RATP
+B;Denfert-Rochereau;oui;gratuit;;oui;oui;;;non;Sur le quai ligne B, en direction de Saint-Rémy-Lès-Chevreuse.;48.8332144, 2.3333365;Toilette publique  RATP
+A;Noisy-le-Grand - Mont d'Est;oui;gratuit;;oui;;oui;;oui;Accès par la gare routière.;48.84082, 2.55154;Toilette publique  RATP
+B;Robinson - fin de ligne;oui;gratuit;;oui;oui;;;oui;Sur le quai 1 Direction Paris au niveau de la tête des trains courts;48.78036417660201, 2.2816982237256243;Toilette publique  RATP
+A;Saint-Maur - Creteil;oui;gratuit;oui;;;;oui;oui;A l'extérieur de la gare, côté autobus.;48.80641960896216, 2.47204505094563;Toilette publique  RATP
+A;Val d'Europe;oui;gratuit;;oui;;oui;;oui;En face du point de vente - information, à proximité de la ligne de valideurs.;48.85549704826123, 2.7736084332189748;Toilette publique  RATP
+A;Neuilly -Plaisance;;;;;;;;;Dans la salle d'échange en face de la ligne de contrôle;48.85361, 2.51357;Toilette publique  RATP
+A;Vincennes;;;;;;;;;Dans la salle d'échange;48.84731, 2.43286;Toilette publique  RATP
+RDS;Villejuif - Louis Aragon;oui;gratuit;oui;;;;oui;oui;Sortie 2, Maxime Gorki vers la gare routière.;48.78730304269838, 2.3674101521293744;Toilette publique  RATP
