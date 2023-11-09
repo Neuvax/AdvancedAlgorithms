@@ -98,8 +98,8 @@ vector<Toilet> read_csv(const string& filename) {
         string lat, lng;
         getline(coord_stream, lat, ',');
         getline(coord_stream, lng, ',');
-        toilet.latitude = stold(lat);
-        toilet.longitude = stold(lng);
+        toilet.latitude = stold(lng); // * Note that the coordinates are flipped
+        toilet.longitude = stold(lat);
 
         getline(s, toilet.manager, ';');
 
@@ -121,7 +121,9 @@ int main() { _
     Delaunay dt;
     dt.insert(points.begin(), points.end());
 
-    Point query(2.3522 /* longitude of Paris */, 48.8566 /* latitude of Paris */);
+    ld lon, lat;
+    cin >> lon >> lat;
+    Point query(lon, lat);
     auto nearest = dt.nearest_vertex(query);
     cout << "The nearest toilet is at: " << nearest->point().x() << ", " << nearest->point().y() << endl;
 
