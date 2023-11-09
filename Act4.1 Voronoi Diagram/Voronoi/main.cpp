@@ -14,6 +14,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -125,7 +126,7 @@ int main() { _
     cin >> lon >> lat;
     Point query(lon, lat);
     auto nearest = dt.nearest_vertex(query);
-    cout << "The nearest toilet is at: " << nearest->point().x() << ", " << nearest->point().y() << endl;
+    cout << setprecision(16) << "The nearest toilet is at: " << nearest->point().x() << ", " << nearest->point().y() << endl;
 
     return 0;
 }
