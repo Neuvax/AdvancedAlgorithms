@@ -13,6 +13,7 @@ typedef long double ld;
 typedef long long lli;
 typedef pair<lli, lli> ii;
 typedef vector<int> vi;
+typedef tuple<int, int, int> Edge;  // destination, capacity, reverse edge index
 
 #define f first
 #define s second
@@ -61,7 +62,7 @@ struct DSU {
  * @return Returns a list of edges that form the MST.
  */
 vector<pair<int, pair<int, int>>> kruskal(vector<pair<int, pair<int, int>>> &edges, int n) {
-    sort(edges.begin(), edges.end()); // Sort edges based on weight
+    sort(all(edges)); // Sort edges based on weight
     DSU dsu(n); 
     vector<pair<int, pair<int, int>>> mst; // To store the edges of the MST
 
@@ -112,75 +113,78 @@ int tsp(int start, const vector<vector<int>>& dist) {
 }
 
 /**
- * @brief Performs a BFS on a graph.
- *
- * This function performs a BFS represented by a residual matrix. It starts from a source node and ends at a sink node.
- * It is used to find an augmenting path in the graph. If such a path is found, the function returns true, otherwise it returns false.
- *
- * @param s The source node from where the BFS needs to start.
- * @param t The sink node where the BFS needs to end.
- * @param residual The residual graph where the BFS needs to be performed. It is a 2D vector where residual[i][j] represents the capacity of the edge from node i to node j.
- * @param parent A vector to store the parent of each node. This is used to construct the augmenting path if it exists.
- * @return Returns true if there is a path from source to sink in the residual graph. Otherwise, it returns false.
+ * @brief Performs a Breadth-First Search (BFS) on a residual graph.
  * 
- * @note Complexity: O(V^2) since we are using an adjacency matrix to represent the graph.
+ * This function performs a BFS to find an augmenting path in the residual graph from the source node (s) to the sink node (t). 
+ * It updates the 'parent' vector with the path information. If an augmenting path is found, the function returns true.
+ * 
+ * @param s The source node in the residual graph.
+ * @param t The sink node in the residual graph.
+ * @param residual The residual graph, represented as a vector of vectors of Edge structures. 
+ *                 Each Edge structure contains the destination node, the capacity of the edge, and the reverse edge index.
+ * @param parent A vector to store the parent node and edge index for each node. Used to reconstruct the augmenting path.
+ * @return Returns true if an augmenting path from source to sink is found. Otherwise, returns false.
+ * 
+ * @note Time Complexity: O(V + E), where V is the number of vertices and E is the number of edges in the graph.
  */
-bool bfs(int s, int t, vector<vi> &residual, vi &parent) {
-    vector<bool> visited(sz(residual), false);
-
+bool bfs(int s, int t, vector<vector<Edge>> &residual, vector<pair<int, int>> &parent) {
+    vector<bool> visited(residual.size(), false);
     queue<int> q;
     q.push(s);
     visited[s] = true;
-    parent[s] = -1;
+    parent[s] = {-1, -1};
 
     while (!q.empty()) {
         int u = q.front();
         q.pop();
 
-        fore(v, 0, sz(residual)) {
-            if (!visited[v] && residual[u][v] > 0) {
-                if (v == t) {  // If we reach sink return true
-                    parent[v] = u;
-                    return true;
-                }
+        for (int i = 0; i < residual[u].size(); ++i) {
+            auto [v, capacity, b] = residual[u][i];
+            if (!visited[v] && capacity > 0) {
+                parent[v] = {u, i};
+                if (v == t) return true;
                 q.push(v);
-                parent[v] = u;
                 visited[v] = true;
             }
         }
     }
-
-    return false; // If we don't reach sink return false
+    return false;
 }
 
 /**
- * @brief Implements the Edmonds-Karp algorithm for finding the maximum flow in a flow network.
- *
- * This function implements the Edmonds-Karp algorithm, which is an implementation of the Ford-Fulkerson method for computing the maximum flow in a flow network.
- * The algorithm uses breadth-first search to find augmenting paths and computes the maximum flow by summing up the flow in each path.
- *
- * @param residual The flow network where the maximum flow needs to be computed. It is a 2D vector where graph[i][j] represents the capacity of the edge from node i to node j.
+ * @brief Implements the Edmonds-Karp algorithm to find the maximum flow in a flow network.
+ * 
+ * This function calculates the maximum flow from the source node (s) to the sink node (t) in a flow network using the Edmonds-Karp algorithm.
+ * It iteratively finds augmenting paths using BFS and updates the flow accordingly until no more augmenting paths are found.
+ * 
+ * @param residual The flow network represented as a vector of vectors of Edge structures.
+ *                 Each Edge structure contains the destination node, the capacity of the edge, and the reverse edge index.
  * @param s The source node in the flow network.
  * @param t The sink node in the flow network.
  * @return Returns the maximum flow from source to sink in the given flow network.
  * 
- * @note Complexity:O(E*V^3) , where V is the number of vertices and E is the number of edges in the flow network, since we are using an adjacency matrix to represent the graph.
+ * @note Time Complexity: O(V * E^2), where V is the number of vertices and E is the number of edges in the flow network.
  */
-int edmondsKarp(vector<vi> &residual, int s, int t) {
-    vi parent(sz(residual));
+int edmondsKarp(vector<vector<Edge>> &residual, int s, int t) {
+    vector<pair<int, int>> parent(residual.size());
     int maxFlow = 0;
 
     while (bfs(s, t, residual, parent)) {
         int pathFlow = numeric_limits<int>::max();
-        for (int v = t; v != s; v = parent[v]) {
-            int u = parent[v];
-            pathFlow = min(pathFlow, residual[u][v]);
+        for (int v = t; v != s; v = parent[v].first) {
+            int u = parent[v].first;
+            int edgeIndex = parent[v].second;
+            auto [aa, capacity, bb] = residual[u][edgeIndex];
+            pathFlow = min(pathFlow, capacity);
         }
 
-        for (int v = t; v != s; v = parent[v]) {
-            int u = parent[v];
-            residual[u][v] -= pathFlow;
-            residual[v][u] += pathFlow;
+        for (int v = t; v != s; v = parent[v].first) {
+            int u = parent[v].first;
+            int edgeIndex = parent[v].second;
+            auto [aa, bb, revIndex] = residual[u][edgeIndex];
+
+            get<1>(residual[u][edgeIndex]) -= pathFlow;  // Reduce capacity of forward edge
+            get<1>(residual[v][revIndex]) += pathFlow;   // Increase capacity of reverse edge
         }
 
         maxFlow += pathFlow;
@@ -189,15 +193,41 @@ int edmondsKarp(vector<vi> &residual, int s, int t) {
     return maxFlow;
 }
 
+/**
+ * @brief Converts an adjacency matrix to an adjacency list.
+ *
+ * This function takes an adjacency matrix as input and converts it to an adjacency list. 
+ * It also adds a reverse edge with zero capacity for each edge in the graph.
+ *
+ * @param matrix The adjacency matrix to be converted. It is a 2D vector where matrix[i][j] represents the capacity of the edge from node i to node j.
+ * @return Returns the adjacency list representation of the graph. It is a vector of vectors where each inner vector represents the edges from a node. Each edge is represented by an Edge object, which contains the destination node, the capacity of the edge, and the index of the reverse edge in the destination node's adjacency list.
+ *
+ * @note The time complexity for this function is O(V^2), where V is the number of vertices in the graph.
+ */
+vector<vector<Edge>> convertToAdjList(const vector<vi> &matrix) {
+    int n = matrix.size();
+    vector<vector<Edge>> adjList(n);
+
+    for (int u = 0; u < n; ++u) {
+        for (int v = 0; v < n; ++v) {
+            if (matrix[u][v] > 0) {
+                adjList[u].emplace_back(v, matrix[u][v], adjList[v].size());
+                // Add a reverse edge with zero capacity
+                adjList[v].emplace_back(u, 0, adjList[u].size() - 1);
+            }
+        }
+    }
+
+    return adjList;
+}
+
 int main() { _
-
-
     int n;
     cin >> n;
 
     // 1. Kruskal
     // Read distance matrix for MST and TSP
-    vector<vector<int>> distanceMatrix(n, vector<int>(n));
+    vector<vi> distanceMatrix(n, vi(n));
     vector<pair<int, pair<int, int>>> edges; // For Kruskal's algorithm
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -227,7 +257,9 @@ int main() { _
         }
     }
 
-    cout << "Maximum Information Flow Value: " << edmondsKarp(graph, 0, sz(graph) - 1) << endl;
+    vector<vector<Edge>> adjList = convertToAdjList(graph);
+
+    cout << "Maximum Information Flow Value: " << edmondsKarp(adjList, 0, sz(adjList) - 1) << endl;
 
     // 4. Voronoi Diagram
 
