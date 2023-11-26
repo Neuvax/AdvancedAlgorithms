@@ -39,6 +39,8 @@ typedef vector<int> vi;
  * @param residual The residual graph where the BFS needs to be performed. It is a 2D vector where residual[i][j] represents the capacity of the edge from node i to node j.
  * @param parent A vector to store the parent of each node. This is used to construct the augmenting path if it exists.
  * @return Returns true if there is a path from source to sink in the residual graph. Otherwise, it returns false.
+ * 
+ * @note Complexity: O(V^2) since we are using an adjacency matrix to represent the graph.
  */
 bool bfs(int s, int t, vector<vi> &residual, vi &parent) {
     vector<bool> visited(sz(residual), false);
@@ -74,10 +76,12 @@ bool bfs(int s, int t, vector<vi> &residual, vi &parent) {
  * This function implements the Edmonds-Karp algorithm, which is an implementation of the Ford-Fulkerson method for computing the maximum flow in a flow network.
  * The algorithm uses breadth-first search to find augmenting paths and computes the maximum flow by summing up the flow in each path.
  *
- * @param graph The flow network where the maximum flow needs to be computed. It is a 2D vector where graph[i][j] represents the capacity of the edge from node i to node j.
+ * @param residual The flow network where the maximum flow needs to be computed. It is a 2D vector where graph[i][j] represents the capacity of the edge from node i to node j.
  * @param s The source node in the flow network.
  * @param t The sink node in the flow network.
  * @return Returns the maximum flow from source to sink in the given flow network.
+ * 
+ * @note Complexity:O(E*V^3) , where V is the number of vertices and E is the number of edges in the flow network, since we are using an adjacency matrix to represent the graph.
  */
 int edmondsKarp(vector<vi> &residual, int s, int t) {
     vi parent(sz(residual));
