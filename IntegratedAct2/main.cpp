@@ -79,17 +79,8 @@ bool bfs(int s, int t, vector<vi> &residual, vi &parent) {
  * @param t The sink node in the flow network.
  * @return Returns the maximum flow from source to sink in the given flow network.
  */
-int edmondsKarp(vector<vi> &graph, int s, int t) {
-    vector<vi> residual(sz(graph), vi(sz(graph), 0));
-
-    // Copy the original graph to residual
-    fore(u, 0, sz(graph)) {
-        fore(v, 0, sz(graph)) {
-            residual[u][v] = graph[u][v];
-        }
-    }
-
-    vi parent(sz(graph));
+int edmondsKarp(vector<vi> &residual, int s, int t) {
+    vi parent(sz(residual));
     int maxFlow = 0;
 
     while (bfs(s, t, residual, parent)) {
@@ -129,7 +120,7 @@ int main() { _
         }
     }
 
-    cout << edmondsKarp(graph, 0, n - 1) << endl;
+    cout << edmondsKarp(graph, 0, sz(graph) - 1) << endl;
 
     //4. Voronoi Diagram
 
