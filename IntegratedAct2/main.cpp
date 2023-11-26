@@ -29,6 +29,89 @@ typedef vector<int> vi;
     cout.tie(0);
 
 /**
+ * @struct DSU
+ * @brief The Disjoint Set Union structure is used in Kruskal's algorithm to manage disjoint sets efficiently.
+ */
+struct DSU {
+    vector<int> parent, rank;
+
+    DSU(int n) : parent(n), rank(n, 0) {
+        iota(parent.begin(), parent.end(), 0); // Initialize parent[i] = i
+    }
+
+    int find(int x) {
+        if (x != parent[x]) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int x, int y) {
+        x = find(x), y = find(y);
+        if (rank[x] < rank[y]) swap(x, y);
+        if (x != y) {
+            if (rank[x] == rank[y]) rank[x]++;
+            parent[y] = x;
+        }
+    }
+};
+
+/**
+ * @brief Implements Kruskal's algorithm to find the Minimum Spanning Tree (MST) in a graph.
+ * @param edges List of all edges in the graph, each with a weight and the nodes it connects.
+ * @param n The number of nodes in the graph.
+ * @return Returns a list of edges that form the MST.
+ */
+vector<pair<int, pair<int, int>>> kruskal(vector<pair<int, pair<int, int>>> &edges, int n) {
+    sort(edges.begin(), edges.end()); // Sort edges based on weight
+    DSU dsu(n); 
+    vector<pair<int, pair<int, int>>> mst; // To store the edges of the MST
+
+    for (auto &edge : edges) {
+        int weight = edge.first;
+        int u = edge.second.first;
+        int v = edge.second.second;
+        if (dsu.find(u) != dsu.find(v)) {
+            dsu.unite(u, v); // Join the sets
+            mst.push_back(edge); // Include this edge in MST
+        }
+    }
+    return mst;
+}
+
+/**
+ * @brief Solves the Traveling Salesman Problem (TSP) using dynamic programming.
+ * @param start The starting node for the TSP.
+ * @param dist The distance matrix representing the graph.
+ * @return Returns the minimum cost to visit all nodes and return to the starting node.
+ */
+int tsp(int start, const vector<vector<int>>& dist) {
+    int n = dist.size();
+    vector<vector<int>> dp(1 << n, vector<int>(n, 1e9));
+
+    dp[1 << start][start] = 0;
+
+    for (int mask = 0; mask < (1 << n); mask++) {
+        for (int i = 0; i < n; i++) {
+            if (!(mask & (1 << i))) continue; // Continue if 'i' is not in the subset
+            for (int j = 0; j < n; j++) {
+                if (mask & (1 << j) || dist[i][j] == INT_MAX) continue; // Continue if 'j' is already in the subset or no direct path
+                int nextMask = mask | (1 << j);
+                dp[nextMask][j] = min(dp[nextMask][j], dp[mask][i] + dist[i][j]);
+            }
+        }
+    }
+
+    // Return the minimum cost to complete the cycle
+    int ans = INT_MAX;
+    for (int i = 0; i < n; i++) {
+        if (dp[(1 << n) - 1][i] != INT_MAX) {
+            ans = min(ans, dp[(1 << n) - 1][i] + dist[i][start]);
+        }
+    }
+
+    return ans;
+}
+
+/**
  * @brief Performs a BFS on a graph.
  *
  * This function performs a BFS represented by a residual matrix. It starts from a source node and ends at a sink node.
@@ -112,27 +195,46 @@ int edmondsKarp(vector<vi> &graph, int s, int t) {
 }
 
 int main() { _
-    // freopen("input.txt", "r", stdin);
-    // freopen("output.txt", "w", stdout);
+
+
     int n;
     cin >> n;
 
     // 1. Kruskal
+    // Read distance matrix for MST and TSP
+    vector<vector<int>> distanceMatrix(n, vector<int>(n));
+    vector<pair<int, pair<int, int>>> edges; // For Kruskal's algorithm
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> distanceMatrix[i][j];
+            if (i < j && distanceMatrix[i][j] > 0) {
+                edges.push_back({distanceMatrix[i][j], {i, j}});
+            }
+        }
+    }
 
-    // 2. TST
+    // 1. Kruskal's algorithm for MST
+    auto mst = kruskal(edges, n);
+    cout << "Minimum Spanning Tree (MST):" << endl;
+    for (const auto& edge : mst) {
+        cout << "Edge from " << edge.second.first << " to " << edge.second.second << " with weight " << edge.first << endl;
+    }
+
+    // 2. TSP for shortest mail delivery route
+    int shortest_route = tsp(0, distanceMatrix); // Assuming starting from neighborhood 0
+    cout << "Shortest route for mail delivery: " << shortest_route << endl;
 
     // 3. Edmonds-Karp
     vector<vi> graph(n, vi(n));
-    fore(u, 0, n) {
-        fore(v, 0, n) {
+    for (int u = 0; u < n; u++) {
+        for (int v = 0; v < n; v++) {
             cin >> graph[u][v];
         }
     }
 
-    cout << edmondsKarp(graph, 0, n - 1) << endl;
+    cout << "Maximum Information Flow Value: " << edmondsKarp(graph, 0, n - 1) << endl;
 
-    //4. Voronoi Diagram
-
+    // 4. Voronoi Diagram
 
     return 0;
 }
