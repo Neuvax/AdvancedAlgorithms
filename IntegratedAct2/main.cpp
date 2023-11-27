@@ -48,6 +48,10 @@ typedef K::Point_2 Point;
 /**
  * @struct DSU
  * @brief The Disjoint Set Union structure is used in Kruskal's algorithm to manage disjoint sets efficiently.
+ * Time Complexity: 
+ *   - find: Nearly constant time, O(log n) in the worst case.
+ *   - unite: Nearly constant time, O(log n) in the worst case.
+ * Space Complexity: O(n) for storing parent and rank arrays.
  */
 struct DSU {
     vector<int> parent, rank;
@@ -76,6 +80,10 @@ struct DSU {
  * @param edges List of all edges in the graph, each with a weight and the nodes it connects.
  * @param n The number of nodes in the graph.
  * @return Returns a list of edges that form the MST.
+ * Time Complexity: O(E log E), where E is the number of edges.
+ *   - O(E log E) for sorting the edges.
+ *   - The union-find operations have a negligible impact on the overall time complexity.
+ * Space Complexity: O(E) for storing the edges of the MST and O(n) for DSU.
  */
 vector<pair<int, pair<int, int>>> kruskal(vector<pair<int, pair<int, int>>> &edges, int n) {
     sort(all(edges)); // Sort edges based on weight
@@ -99,6 +107,10 @@ vector<pair<int, pair<int, int>>> kruskal(vector<pair<int, pair<int, int>>> &edg
  * @param start The starting node for the TSP.
  * @param dist The distance matrix representing the graph.
  * @return Returns the minimum cost to visit all nodes and return to the starting node.
+ * Time Complexity: O(n^2 * 2^n)
+ *   - There are 2^n subsets of nodes, and for each subset, we consider n nodes to find the minimum path.
+ * Space Complexity: O(n * 2^n)
+ *   - The dp table has dimensions 2^n by n, storing the minimum cost for each subset and each ending node.
  */
 int tsp(int start, const vector<vector<int>>& dist) {
     int n = dist.size();
