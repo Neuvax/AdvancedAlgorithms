@@ -3,9 +3,19 @@
  * @author Jorge Germán Wolburg Trujillo -- A01640826
  * @author Armando Terrazas Gómez -- A01640924
  * @brief
- * @date 09-09-2023
+ * @date 28-11-2023
  */
-#include <bits/stdc++.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Triangulation_face_base_with_info_2.h>
+
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <numeric>
+#include <queue>
+#include <tuple>
+#include <vector>
 
 using namespace std;
 
@@ -14,6 +24,12 @@ typedef long long lli;
 typedef pair<lli, lli> ii;
 typedef vector<int> vi;
 typedef tuple<int, int, int> Edge;  // destination, capacity, reverse edge index
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Triangulation_vertex_base_2<K> Vb;
+typedef CGAL::Triangulation_face_base_with_info_2<vector<K::Point_2>, K> Fb;
+typedef CGAL::Triangulation_data_structure_2<Vb,Fb> Tds;
+typedef CGAL::Delaunay_triangulation_2<K, Tds> Delaunay;
+typedef K::Point_2 Point;
 
 #define f first
 #define s second
@@ -221,6 +237,24 @@ vector<vector<Edge>> convertToAdjList(const vector<vi> &matrix) {
     return adjList;
 }
 
+void extract_voronoi_cells(Delaunay& dt) {
+    typedef Delaunay::All_faces_iterator All_faces_iterator;
+    for (All_faces_iterator fi = dt.all_faces_begin(); fi != dt.all_faces_end(); ++fi) {
+        if (dt.is_infinite(fi)) {
+            continue; // Skip infinite faces
+        }
+
+        // Get the circumcenter of the Delaunay triangle
+        Point circumcenter = dt.circumcenter(fi);
+
+        // Output the circumcenter as a single point of the Voronoi cell
+        cout << "Voronoi Cell Vertex: ";
+        cout << "(" << circumcenter.x() << ", " << circumcenter.y() << ")" << endl;
+    }
+}
+
+
+
 int main() { _
     int n;
     cin >> n;
@@ -262,8 +296,23 @@ int main() { _
     cout << "Maximum Information Flow Value: " << edmondsKarp(adjList, 0, sz(adjList) - 1) << endl;
 
     // 4. Voronoi Diagram
+    vector<Point> points(n);
+    for (int i = 0; i < n; i++) {
+        string s; //(x, y)
+        cin >> s;
+        // Create substring without parentheses and split by comma
+        string x = s.substr(1, s.find(',') - 1);
+        string y = s.substr(s.find(',') + 1, s.size() - 2);
+        points[i] = Point(stold(x), stold(y));
+    }
+
+    Delaunay dt;
+    dt.insert(points.begin(), points.end());
+
+    extract_voronoi_cells(dt);
 
     return 0;
 }
 
 // g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt
+//  /opt/homebrew/bin/cgal_create_CMakeLists -s main && cmake -DCMAKE_BUILD_TYPE=Release . && make
