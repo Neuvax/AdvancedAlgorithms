@@ -237,9 +237,22 @@ vector<vector<Edge>> convertToAdjList(const vector<vi> &matrix) {
     return adjList;
 }
 
+/**
+ * @brief Extracts and outputs the vertices of Voronoi cells from a Delaunay triangulation.
+ *
+ * This function iterates over all the faces of a Delaunay triangulation and calculates the circumcenter
+ * of each triangle. These circumcenters serve as the vertices of the corresponding Voronoi cells.
+ * The function skips over infinite faces to avoid unbounded cells. Each circumcenter is outputted as a vertex.
+ *
+ * @param dt A reference to the Delaunay triangulation from which Voronoi cells are to be extracted.
+ * 
+ * @note The time complexity of constructing the Delaunay Triangulation is O(n log n) for n points.
+ *       The time complexity of this function is O(n), where n is the number of faces in the Delaunay triangulation.
+ *       This is because the function iterates over all faces and performs a constant-time operation (circumcenter calculation)
+ *       for each face.
+ */
 void extract_voronoi_cells(Delaunay& dt) {
-    typedef Delaunay::All_faces_iterator All_faces_iterator;
-    for (All_faces_iterator fi = dt.all_faces_begin(); fi != dt.all_faces_end(); ++fi) {
+    for (auto fi = dt.all_faces_begin(); fi != dt.all_faces_end(); ++fi) {
         if (dt.is_infinite(fi)) {
             continue; // Skip infinite faces
         }
@@ -252,8 +265,6 @@ void extract_voronoi_cells(Delaunay& dt) {
         cout << "(" << circumcenter.x() << ", " << circumcenter.y() << ")" << endl;
     }
 }
-
-
 
 int main() { _
     int n;
@@ -315,4 +326,4 @@ int main() { _
 }
 
 // g++-13 -std=c++20 main.cpp && ./a.out < input.txt > output.txt
-//  /opt/homebrew/bin/cgal_create_CMakeLists -s main && cmake -DCMAKE_BUILD_TYPE=Release . && make
+// /opt/homebrew/bin/cgal_create_CMakeLists -s main && cmake -DCMAKE_BUILD_TYPE=Release . && make && ./main < input.txt > output.txt
