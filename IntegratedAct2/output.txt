@@ -4,3 +4,5 @@ Edge from 0 to 1 with weight 16
 Edge from 1 to 2 with weight 18
 Shortest route for mail delivery: 73
 Maximum Information Flow Value: 66
+Voronoi Cell Vertex: (311.538, 315.385)
+Voronoi Cell Vertex: (350.841, 343.458)

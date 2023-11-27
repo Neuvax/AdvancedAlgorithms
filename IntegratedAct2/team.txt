@@ -1,0 +1,2 @@
+Jorge Germán Wolburg Trujillo -- A01640826 -- Minimum Spanning Tree and Traveling Salesman Problem
+Armando Terrazas Gómez -- A01640924 -- Edmonds-Karp and Voronoi Diagram
