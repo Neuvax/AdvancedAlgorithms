@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Jorge Germán Wolburg Trujillo -- A01640826
  * @author Armando Terrazas Gómez -- A01640924
- * @brief
+ * @brief This file contains the implementation of the Integrated Activity 2.
  * @date 28-11-2023
  */
 #include <CGAL/Delaunay_triangulation_2.h>
