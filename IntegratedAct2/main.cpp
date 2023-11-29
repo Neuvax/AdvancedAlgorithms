@@ -338,7 +338,7 @@ int main() { _
 
     // 2. TSP for shortest mail delivery route
     TSPResult tsp_result = tsp(0, distanceMatrix); // Start at node 0
-    cout << "Route cost" << tsp_result.cost << endl;
+    cout << "Route cost: " << tsp_result.cost << endl;
     cout << "Shortest Route to follow: ";
     for (int i = 0; i < tsp_result.path.size(); i++) {
         cout << tsp_result.path[i] << (i < tsp_result.path.size() - 1 ? " -> " : "\n");
