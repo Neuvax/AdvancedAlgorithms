@@ -76,6 +76,26 @@ struct DSU {
 };
 
 /**
+ * @brief Structure to store the result of the Traveling Salesman Problem (TSP) solution.
+ * 
+ * This structure is used to store both the minimum cost and the corresponding path for the TSP solution.
+ * It encapsulates the result of the dynamic programming approach used in solving the TSP.
+ * 
+ * Members:
+ *   - cost: An integer representing the minimum cost to complete the TSP route.
+ *   - path: A vector of integers representing the sequence of nodes in the TSP route.
+ * 
+ * The default constructor initializes the cost to the maximum integer value, indicating that initially, no route has been calculated.
+ */
+struct TSPResult {
+    int cost;
+    vector<int> path;
+
+    TSPResult() : cost(INT_MAX) {}
+};
+
+
+/**
  * @brief Implements Kruskal's algorithm to find the Minimum Spanning Tree (MST) in a graph.
  * @param edges List of all edges in the graph, each with a weight and the nodes it connects.
  * @param n The number of nodes in the graph.
@@ -104,40 +124,54 @@ vector<pair<int, pair<int, int>>> kruskal(vector<pair<int, pair<int, int>>> &edg
 
 /**
  * @brief Solves the Traveling Salesman Problem (TSP) using dynamic programming.
+ * 
+ * This function finds the shortest route that visits each node exactly once and returns to the starting node.
+ * It employs a dynamic programming approach to efficiently compute the optimal route and its cost.
+ * 
  * @param start The starting node for the TSP.
- * @param dist The distance matrix representing the graph.
- * @return Returns the minimum cost to visit all nodes and return to the starting node.
- * Time Complexity: O(n^2 * 2^n)
- *   - There are 2^n subsets of nodes, and for each subset, we consider n nodes to find the minimum path.
- * Space Complexity: O(n * 2^n)
- *   - The dp table has dimensions 2^n by n, storing the minimum cost for each subset and each ending node.
+ * @param dist The distance matrix representing the graph. dist[i][j] is the distance from node i to node j.
+ * @return A TSPResult object containing the minimum cost and the corresponding route.
+ * 
+ * Time Complexity:
+ *   - O(n^2 * 2^n): There are 2^n subsets of nodes, and for each subset, n nodes are considered to find the minimum path.
+ * 
+ * Space Complexity:
+ *   - O(n * 2^n): The dp table has dimensions of 2^n by n, storing the minimum cost and route for each subset and each ending node.
  */
-int tsp(int start, const vector<vector<int>>& dist) {
+TSPResult tsp(int start, const vector<vector<int>>& dist) {
     int n = dist.size();
-    vector<vector<int>> dp(1 << n, vector<int>(n, 1e9));
+    vector<vector<TSPResult>> dp(1 << n, vector<TSPResult>(n));
 
-    dp[1 << start][start] = 0;
+    dp[1 << start][start].cost = 0;
+    dp[1 << start][start].path.push_back(start);
 
     for (int mask = 0; mask < (1 << n); mask++) {
         for (int i = 0; i < n; i++) {
-            if (!(mask & (1 << i))) continue; // Continue if 'i' is not in the subset
+            if (!(mask & (1 << i)) || dp[mask][i].cost == INT_MAX) continue;
             for (int j = 0; j < n; j++) {
-                if (mask & (1 << j) || dist[i][j] == INT_MAX) continue; // Continue if 'j' is already in the subset or no direct path
+                if (mask & (1 << j) || dist[i][j] == INT_MAX) continue;
                 int nextMask = mask | (1 << j);
-                dp[nextMask][j] = min(dp[nextMask][j], dp[mask][i] + dist[i][j]);
+                int nextCost = dp[mask][i].cost + dist[i][j];
+                if (nextCost < dp[nextMask][j].cost) {
+                    dp[nextMask][j].cost = nextCost;
+                    dp[nextMask][j].path = dp[mask][i].path;
+                    dp[nextMask][j].path.push_back(j);
+                }
             }
         }
     }
 
-    // Return the minimum cost to complete the cycle
-    int ans = INT_MAX;
+    TSPResult result;
+    int allVisited = (1 << n) - 1;
     for (int i = 0; i < n; i++) {
-        if (dp[(1 << n) - 1][i] != INT_MAX) {
-            ans = min(ans, dp[(1 << n) - 1][i] + dist[i][start]);
+        if (dp[allVisited][i].cost + dist[i][start] < result.cost) {
+            result.cost = dp[allVisited][i].cost + dist[i][start];
+            result.path = dp[allVisited][i].path;
+            result.path.push_back(start);
         }
     }
 
-    return ans;
+    return result;
 }
 
 /**
@@ -303,8 +337,12 @@ int main() { _
     }
 
     // 2. TSP for shortest mail delivery route
-    int shortest_route = tsp(0, distanceMatrix); // Assuming starting from neighborhood 0
-    cout << "Shortest route for mail delivery: " << shortest_route << endl;
+    TSPResult tsp_result = tsp(0, distanceMatrix); // Start at node 0
+    cout << "Route cost" << tsp_result.cost << endl;
+    cout << "Shortest Route to follow: ";
+    for (int i = 0; i < tsp_result.path.size(); i++) {
+        cout << tsp_result.path[i] << (i < tsp_result.path.size() - 1 ? " -> " : "\n");
+    }
 
     // 3. Edmonds-Karp
     vector<vi> graph(n, vi(n));
@@ -318,7 +356,7 @@ int main() { _
 
     cout << "Maximum Information Flow Value: " << edmondsKarp(adjList, 0, sz(adjList) - 1) << endl;
 
-    // 4. Voronoi Diagram
+    //4. Voronoi Diagram
     vector<Point> points(n);
     for (int i = 0; i < n; i++) {
         string s; //(x, y)
